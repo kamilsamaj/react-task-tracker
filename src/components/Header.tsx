@@ -1,7 +1,15 @@
 import React, { SyntheticEvent } from "react";
 import Button from "./Button";
 
-const Header = ({ title }: { title: string }) => {
+const Header = ({
+  title,
+  onAdd,
+  showAdd,
+}: {
+  title: string;
+  onAdd: () => void;
+  showAdd: boolean;
+}) => {
   const onClick = (ev: SyntheticEvent) => {
     console.log(ev);
     console.log("click");
@@ -10,7 +18,11 @@ const Header = ({ title }: { title: string }) => {
   return (
     <header className="header">
       <h1 className="header">{title}</h1>
-      <Button color="green" text="Hello" onClick={onClick} />
+      <Button
+        color={showAdd ? "red" : "green"}
+        text={showAdd ? "Close" : "Add"}
+        onClick={(ev) => onAdd()}
+      />
     </header>
   );
 };
