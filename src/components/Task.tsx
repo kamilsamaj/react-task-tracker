@@ -4,12 +4,17 @@ import { MouseEventHandler } from "react";
 const Task = ({
   task,
   onDelete,
+  onToggle,
 }: {
   task: { id: number; text: string; day: string; reminder: boolean };
   onDelete: (id: number) => MouseEventHandler<SVGElement> | undefined;
+  onToggle: (id: number) => MouseEventHandler<SVGElement> | undefined;
 }) => {
   return (
-    <div className="task">
+    <div
+      className={`task ${task.reminder ? "reminder" : ""}`}
+      onDoubleClick={(ev) => onToggle(task.id)}
+    >
       <h3>
         {task.text}{" "}
         <FaTimes
