@@ -1,8 +1,8 @@
-import React from "react";
+import React, { SyntheticEvent } from "react";
 import Button from "./Button";
 
 const Header = ({ title }: { title: string }) => {
-  const onClick = (ev: any) => {
+  const onClick = (ev: SyntheticEvent) => {
     console.log(ev);
     console.log("click");
   };

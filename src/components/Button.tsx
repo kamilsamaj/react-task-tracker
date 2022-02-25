@@ -1,4 +1,4 @@
-import React from "react";
+import React, { SyntheticEvent } from "react";
 
 const Button = ({
   color,
@@ -7,7 +7,7 @@ const Button = ({
 }: {
   color: string;
   text: string;
-  onClick: (ev: any) => void;
+  onClick: (ev: SyntheticEvent) => void;
 }) => {
   return (
     <button

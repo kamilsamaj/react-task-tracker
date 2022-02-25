@@ -12,14 +12,21 @@ const Tasks = ({
 }) => {
   return (
     <>
-      {tasks.map((task: any) => (
-        <Task
-          key={task.id}
-          task={task}
-          onDelete={onDelete}
-          onToggle={onToggle}
-        />
-      ))}
+      {tasks.map(
+        (task: {
+          id: number;
+          text: string;
+          day: string;
+          reminder: boolean;
+        }) => (
+          <Task
+            key={task.id}
+            task={task}
+            onDelete={onDelete}
+            onToggle={onToggle}
+          />
+        )
+      )}
     </>
   );
 };

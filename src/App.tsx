@@ -1,5 +1,6 @@
 import React, { MouseEventHandler, useState } from "react";
 import Tasks from "./components/Tasks";
+import AddTask from "./components/AddTask";
 
 import Header from "./components/Header";
 
@@ -25,6 +26,13 @@ function App() {
     },
   ]);
 
+  const addTask = (task: { text: string; day: string; reminder: boolean }) => {
+    console.log(task);
+    const id = Math.floor(Math.random() * 1000000) + 1;
+    const newTask = { id, ...task };
+    setTasks([...tasks, newTask]);
+  };
+
   const deleteTask = (
     id: number
   ): MouseEventHandler<SVGElement> | undefined => {
@@ -48,6 +56,7 @@ function App() {
   return (
     <div className="container">
       <Header title="Hello" />
+      <AddTask onAdd={addTask} />
       {tasks.length > 0 ? (
         <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} />
       ) : (
