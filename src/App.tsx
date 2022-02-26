@@ -18,6 +18,12 @@ function App() {
     return data;
   };
 
+  const fetchTask = async (id: number) => {
+    const res = await fetch(`${backendUrl}/tasks/${id}`);
+    const data = await res.json();
+    return data;
+  };
+
   useEffect(() => {
     const getTasks = async () => {
       const tasksFromServer = await fetchTasks();
@@ -54,15 +60,32 @@ function App() {
     return undefined;
   };
 
+  const updateTask = async (id: number): Promise<TaskIface> => {
+    const taskToToggle = await fetchTask(id);
+    const updTask = { ...taskToToggle, reminder: !taskToToggle.reminder };
+    const res = await fetch(`${backendUrl}/tasks/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updTask),
+    });
+
+    const data = await res.json();
+    return data;
+  };
+
   const toggleReminder = (
     id: number
   ): MouseEventHandler<SVGElement> | undefined => {
     console.log(id);
-    setTasks(
-      tasks.map((task) =>
-        task.id === id ? { ...task, reminder: !task.reminder } : task
-      )
-    );
+    updateTask(id).then((data) => {
+      setTasks(
+        tasks.map((task) =>
+          task.id === id ? { ...task, reminder: !data.reminder } : task
+        )
+      );
+    });
     return undefined;
   };
 
