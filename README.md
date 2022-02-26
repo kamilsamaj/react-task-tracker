@@ -1,20 +1,30 @@
-# Getting Started with Create React App
+# Task Tracker Example App
 
-This project was bootstrapped
-with [Create React App](https://github.com/facebook/create-react-app) [based on a tutorial from Traversy Media](
+The application example [based on a tutorial from Traversy Media](
 https://www.youtube.com/watch?v=w7ejDZ8SWv8&ab_channel=TraversyMedia)
 
 ```shell
 npx create-react-app react-task-tracker --template typescript
 ```
 
-## Available Scripts
+## Run the project for development
 
-In the project directory, you can run:
+### Start the fake API backend server
 
-### `npm start`
+This will start the `typicode` JSON backend API server on `http://localhost:5000`. You probably want to do that in a
+separate terminal session.
 
-Runs the app in the development mode.\
+```shell
+# start the fake API backend server with:
+npm run server
+```
+
+### Start the application in the development mode
+
+```shell
+npm start
+```
+
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
@@ -43,12 +53,12 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will
 remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right
-into your project so you have full control over them. All of the commands except `eject` will still work, but they will
-point to the copied scripts so you can tweak them. At this point you’re on your own.
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc.) right
+into your project, so you have full control over them. All the commands except `eject` will still work, but they will
+point to the copied scripts, so you can tweak them. At this point you’re on your own.
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you
-shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t
+shouldn’t feel obligated to use this feature. However, we understand that this tool would not be useful if you could not
 customize it when you are ready for it.
 
 ## Learn More
