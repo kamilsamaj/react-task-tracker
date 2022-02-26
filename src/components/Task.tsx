@@ -1,12 +1,19 @@
 import { FaTimes } from "react-icons/fa";
 import { MouseEventHandler } from "react";
 
+export interface TaskIface {
+  id: number;
+  text: string;
+  day: string;
+  reminder: boolean;
+}
+
 const Task = ({
   task,
   onDelete,
   onToggle,
 }: {
-  task: { id: number; text: string; day: string; reminder: boolean };
+  task: TaskIface;
   onDelete: (id: number) => MouseEventHandler<SVGElement> | undefined;
   onToggle: (id: number) => MouseEventHandler<SVGElement> | undefined;
 }) => {

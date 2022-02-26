@@ -1,42 +1,54 @@
-import React, { MouseEventHandler, useState } from "react";
+import React, { MouseEventHandler, useEffect, useState } from "react";
 import Tasks from "./components/Tasks";
 import AddTask from "./components/AddTask";
 
 import Header from "./components/Header";
+import { TaskIface } from "./components/Task";
+
+const backendUrl = "http://localhost:5000"; // local API json server
 
 function App() {
+  const initTasks: TaskIface[] = [];
   const [showAddTask, setShowAddTask] = useState(false);
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      text: "Doctors Appointment",
-      day: "Feb 5th at 2:30pm",
-      reminder: true,
-    },
-    {
-      id: 2,
-      text: "Meeting at School",
-      day: "Feb 6th at 1:30pm",
-      reminder: true,
-    },
-    {
-      id: 3,
-      text: "Food Shopping",
-      day: "Feb 5th at 2:30pm",
-      reminder: false,
-    },
-  ]);
+  const [tasks, setTasks] = useState(initTasks);
 
-  const addTask = (task: { text: string; day: string; reminder: boolean }) => {
+  const fetchTasks = async () => {
+    const res = await fetch(`${backendUrl}/tasks`);
+    const data = await res.json();
+    return data;
+  };
+
+  useEffect(() => {
+    const getTasks = async () => {
+      const tasksFromServer = await fetchTasks();
+      setTasks(tasksFromServer);
+    };
+    getTasks();
+  }, []);
+
+  const addTask = async (task: {
+    text: string;
+    day: string;
+    reminder: boolean;
+  }) => {
     console.log(task);
-    const id = Math.floor(Math.random() * 1000000) + 1;
-    const newTask = { id, ...task };
-    setTasks([...tasks, newTask]);
+    const res = await fetch(`${backendUrl}/tasks`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(task),
+    });
+    const data: TaskIface = await res.json();
+    setTasks([...tasks, data]);
   };
 
   const deleteTask = (
     id: number
   ): MouseEventHandler<SVGElement> | undefined => {
+    fetch(`${backendUrl}/tasks/${id}`, {
+      method: "DELETE",
+    }).then();
     console.log("delete", id);
     setTasks(tasks.filter((task) => task.id !== id));
     return undefined;
