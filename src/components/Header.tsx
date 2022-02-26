@@ -1,4 +1,5 @@
-import React, { SyntheticEvent } from "react";
+import React from "react";
+import { useLocation } from "react-router-dom";
 import Button from "./Button";
 
 const Header = ({
@@ -10,19 +11,18 @@ const Header = ({
   onAdd: () => void;
   showAdd: boolean;
 }) => {
-  const onClick = (ev: SyntheticEvent) => {
-    console.log(ev);
-    console.log("click");
-  };
+  const location = useLocation();
 
   return (
     <header className="header">
       <h1 className="header">{title}</h1>
-      <Button
-        color={showAdd ? "red" : "green"}
-        text={showAdd ? "Close" : "Add"}
-        onClick={(ev) => onAdd()}
-      />
+      {location.pathname === "/" && (
+        <Button
+          color={showAdd ? "red" : "green"}
+          text={showAdd ? "Close" : "Add"}
+          onClick={(ev) => onAdd()}
+        />
+      )}
     </header>
   );
 };

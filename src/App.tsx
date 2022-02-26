@@ -1,8 +1,11 @@
 import React, { MouseEventHandler, useEffect, useState } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Tasks from "./components/Tasks";
 import AddTask from "./components/AddTask";
 
 import Header from "./components/Header";
+import Footer from "./components/Footer";
+import About from "./components/About";
 import { TaskIface } from "./components/Task";
 
 const backendUrl = "http://localhost:5000"; // local API json server
@@ -90,22 +93,38 @@ function App() {
   };
 
   return (
-    <div className="container">
-      <Header
-        onAdd={() => {
-          console.log("Setting showAddTask to:", !showAddTask);
-          setShowAddTask(!showAddTask);
-        }}
-        title="Hello"
-        showAdd={showAddTask}
-      />
-      {showAddTask && <AddTask onAdd={addTask} />}
-      {tasks.length > 0 ? (
-        <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} />
-      ) : (
-        "No Tasks To Show"
-      )}
-    </div>
+    <Router>
+      <div className="container">
+        <Header
+          onAdd={() => {
+            console.log("Setting showAddTask to:", !showAddTask);
+            setShowAddTask(!showAddTask);
+          }}
+          title="Task Tracker"
+          showAdd={showAddTask}
+        />
+        <Route
+          path="/"
+          exact
+          render={(props) => (
+            <>
+              {showAddTask && <AddTask onAdd={addTask} />}
+              {tasks.length > 0 ? (
+                <Tasks
+                  tasks={tasks}
+                  onDelete={deleteTask}
+                  onToggle={toggleReminder}
+                />
+              ) : (
+                "No Tasks To Show"
+              )}
+            </>
+          )}
+        />
+        <Route path="/about" component={About} />
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
